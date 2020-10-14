@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/aodeniyide/stale-ami-alerts/ami"
+	"github.com/aodeniyide/stale-ami-alerts/internal/ami"
 )
 
 func main() {
