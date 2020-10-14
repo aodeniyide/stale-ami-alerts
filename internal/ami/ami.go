@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// QueryAmi
+// QueryAmi get image descriptions.
 func QueryAmi (ownerid string, region string ) map[string]string {
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(region),
@@ -34,6 +34,7 @@ func QueryAmi (ownerid string, region string ) map[string]string {
 	return img
 }
 
+// convert aws timestamp
 func UpdateTime(t string) time.Time {
 	f, err :=  time.Parse(time.RFC3339, t)
 	if err != nil {
@@ -42,6 +43,7 @@ func UpdateTime(t string) time.Time {
 	return f
 }
 
+// process the aws timestamp of ami to get days
 func ProcessStaleAmi(t time.Time) int {
 	createTime := t
 	currentTime := time.Now()
@@ -50,6 +52,7 @@ func ProcessStaleAmi(t time.Time) int {
 
 }
 
+// Create the alert
 func AlertStaleAmi(a string, t int, dayLimit int)  {
 	if t >= dayLimit {
 		fmt.Println("ami_id:", a, "has an uptime of:", t, "days. Please deregister")
